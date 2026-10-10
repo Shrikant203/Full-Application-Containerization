@@ -1,0 +1,130 @@
+{
+  "base_url": "http://localhost:8000",
+  "passed": 13,
+  "total": 13,
+  "checks": [
+    {
+      "test": "GET /health returns 200 and status ok",
+      "passed": true,
+      "detail": "HTTP 200 {\"status\": \"ok\", \"uptime_seconds\": 574.2}"
+    },
+    {
+      "test": "GET / lists the endpoints",
+      "passed": true,
+      "detail": "HTTP 200, endpoints=['GET /health', 'GET /model-info', 'GET /samples', 'POST /predict']"
+    },
+    {
+      "test": "GET /model-info returns model metadata",
+      "passed": true,
+      "detail": "HTTP 200, parameters=4810, test_accuracy=0.9722"
+    },
+    {
+      "test": "GET /samples returns 10 labelled examples",
+      "passed": true,
+      "detail": "HTTP 200, 10 samples"
+    },
+    {
+      "test": "POST /predict classifies the 10 samples",
+      "passed": true,
+      "detail": "10/10 correct"
+    },
+    {
+      "test": "POST /predict batch of 10 instances",
+      "passed": true,
+      "detail": "HTTP 200, count=10, inference_ms=0.749"
+    },
+    {
+      "test": "Wrong input length is rejected with 400",
+      "passed": true,
+      "detail": "HTTP 400 {\"error\": \"Each image needs exactly 64 pixel values (flattened 8x8).\"}"
+    },
+    {
+      "test": "Non-numeric pixels are rejected with 400",
+      "passed": true,
+      "detail": "HTTP 400 {\"error\": \"All pixel values must be numbers.\"}"
+    },
+    {
+      "test": "Out-of-range pixels are rejected with 400",
+      "passed": true,
+      "detail": "HTTP 400 {\"error\": \"Pixel values must be finite numbers between 0 and 16.\"}"
+    },
+    {
+      "test": "Invalid JSON is rejected with 400",
+      "passed": true,
+      "detail": "HTTP 400 {\"error\": \"Request body must be a JSON object with \\\"pixels\\\" or \\\"instances\\\".\"}"
+    },
+    {
+      "test": "Unknown route returns JSON 404",
+      "passed": true,
+      "detail": "HTTP 404 {\"error\": \"Route not found.\"}"
+    },
+    {
+      "test": "GET on /predict returns JSON 405",
+      "passed": true,
+      "detail": "HTTP 405 {\"error\": \"Method not allowed for this route.\"}"
+    },
+    {
+      "test": "Latency of 50 sequential /predict calls measured",
+      "passed": true,
+      "detail": "{\"requests\": 50, \"mean_ms\": 1.47, \"median_ms\": 1.37, \"max_ms\": 2.54}"
+    }
+  ],
+  "predictions": [
+    {
+      "true": 0,
+      "predicted": 0,
+      "confidence": 1.0
+    },
+    {
+      "true": 1,
+      "predicted": 1,
+      "confidence": 0.9989
+    },
+    {
+      "true": 2,
+      "predicted": 2,
+      "confidence": 1.0
+    },
+    {
+      "true": 3,
+      "predicted": 3,
+      "confidence": 1.0
+    },
+    {
+      "true": 4,
+      "predicted": 4,
+      "confidence": 1.0
+    },
+    {
+      "true": 5,
+      "predicted": 5,
+      "confidence": 1.0
+    },
+    {
+      "true": 6,
+      "predicted": 6,
+      "confidence": 0.9972
+    },
+    {
+      "true": 7,
+      "predicted": 7,
+      "confidence": 1.0
+    },
+    {
+      "true": 8,
+      "predicted": 8,
+      "confidence": 0.9951
+    },
+    {
+      "true": 9,
+      "predicted": 9,
+      "confidence": 0.9837
+    }
+  ],
+  "latency": {
+    "requests": 50,
+    "mean_ms": 1.47,
+    "median_ms": 1.37,
+    "max_ms": 2.54
+  }
+}

@@ -1,0 +1,20 @@
+[PASS] UI page renders without an exception: exceptions=0
+[PASS] UI title is shown: ['Deep Learning Digit Classifier']
+[PASS] Sidebar reports that the API is reachable: ['API reachable (status: ok)']
+[PASS] Sidebar shows the model accuracy from the API: 97.22 %
+        digit 0 -> UI shows predicted 0, confidence 100.0 %
+        digit 1 -> UI shows predicted 1, confidence 99.9 %
+        digit 2 -> UI shows predicted 2, confidence 100.0 %
+        digit 3 -> UI shows predicted 3, confidence 100.0 %
+        digit 4 -> UI shows predicted 4, confidence 100.0 %
+        digit 5 -> UI shows predicted 5, confidence 100.0 %
+        digit 6 -> UI shows predicted 6, confidence 99.7 %
+        digit 7 -> UI shows predicted 7, confidence 100.0 %
+        digit 8 -> UI shows predicted 8, confidence 99.5 %
+        digit 9 -> UI shows predicted 9, confidence 98.4 %
+[PASS] UI classifies all 10 sample digits through the API: 10/10 correct
+[PASS] Pixel-value tab predicts a pasted image of the digit 3: predicted 3
+[PASS] Invalid input shows the API error message in the UI: ['Prediction failed: Each image needs exactly 64 pixel values (flattened 8x8).']
+[PASS] UI shows an error (no crash) when the API is unreachable: API not reachable: HTTPConnectionPool(host='127.0.0.1', port=9): Max r
+
+8/8 UI integration checks passed

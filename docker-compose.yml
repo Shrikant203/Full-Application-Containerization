@@ -1,0 +1,28 @@
+# Full application: Flask API (model inside) + Streamlit UI, started together.
+name: dl-app
+
+services:
+  api:
+    build: ./api
+    image: dl-api:1.0
+    container_name: dl-api
+    ports:
+      - "8000:5000"          # host 8000 -> API port 5000 (host port 5000 is used by macOS AirPlay)
+    restart: unless-stopped
+
+  ui:
+    build: ./ui
+    image: dl-ui:1.0
+    container_name: dl-ui
+    environment:
+      API_URL: http://api:5000   # the UI reaches the API by its service name on the private network
+    ports:
+      - "8501:8501"
+    depends_on:
+      api:
+        condition: service_healthy   # start the UI only after the API reports "healthy"
+    restart: unless-stopped
+
+networks:
+  default:
+    name: dl-app-net

@@ -1,0 +1,2 @@
+dl-api:1.0 (Flask + gunicorn + NumPy model) :   303,293,481 bytes =    303.3 MB
+dl-ui:1.0  (Streamlit UI)                   :   778,900,479 bytes =    778.9 MB

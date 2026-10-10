@@ -1,0 +1,56 @@
+LOCAL VERIFICATION (run in the development sandbox, NOT inside Docker)
+Python 3.12.3; Streamlit 1.65.0; Flask 3.1.3; gunicorn 26.2.0 (pinned versions, clean virtual environments)
+API: gunicorn --bind 127.0.0.1:5058 --workers 2 app:app   |   UI: streamlit run streamlit_app.py (API_URL=http://127.0.0.1:5058)
+
+== 1. API test suite (python tests/test_api.py) ==
+[PASS] GET /health returns 200 and status ok: HTTP 200 {"status": "ok", "uptime_seconds": 6.6}
+[PASS] GET / lists the endpoints: HTTP 200, endpoints=['GET /health', 'GET /model-info', 'GET /samples', 'POST /predict']
+[PASS] GET /model-info returns model metadata: HTTP 200, parameters=4810, test_accuracy=0.9722
+[PASS] GET /samples returns 10 labelled examples: HTTP 200, 10 samples
+[PASS] POST /predict classifies the 10 samples: 10/10 correct
+        true 0 -> predicted 0 (confidence 1.0)
+        true 1 -> predicted 1 (confidence 0.9989)
+        true 2 -> predicted 2 (confidence 1.0)
+        true 3 -> predicted 3 (confidence 1.0)
+        true 4 -> predicted 4 (confidence 1.0)
+        true 5 -> predicted 5 (confidence 1.0)
+        true 6 -> predicted 6 (confidence 0.9972)
+        true 7 -> predicted 7 (confidence 1.0)
+        true 8 -> predicted 8 (confidence 0.9951)
+        true 9 -> predicted 9 (confidence 0.9837)
+[PASS] POST /predict batch of 10 instances: HTTP 200, count=10, inference_ms=1.148
+[PASS] Wrong input length is rejected with 400: HTTP 400 {"error": "Each image needs exactly 64 pixel values (flattened 8x8)."}
+[PASS] Non-numeric pixels are rejected with 400: HTTP 400 {"error": "All pixel values must be numbers."}
+[PASS] Out-of-range pixels are rejected with 400: HTTP 400 {"error": "Pixel values must be finite numbers between 0 and 16."}
+[PASS] Invalid JSON is rejected with 400: HTTP 400 {"error": "Request body must be a JSON object with \"pixels\" or \"instances\"."}
+[PASS] Unknown route returns JSON 404: HTTP 404 {"error": "Route not found."}
+[PASS] GET on /predict returns JSON 405: HTTP 405 {"error": "Method not allowed for this route."}
+[PASS] Latency of 50 sequential /predict calls measured: {"requests": 50, "mean_ms": 0.82, "median_ms": 0.8, "max_ms": 1.36}
+
+13/13 checks passed
+
+== 2. UI integration test (Streamlit AppTest -> real API) ==
+[PASS] UI page renders without an exception: exceptions=0
+[PASS] UI title is shown: ['Deep Learning Digit Classifier']
+[PASS] Sidebar reports that the API is reachable: ['API reachable (status: ok)']
+[PASS] Sidebar shows the model accuracy from the API: 97.22 %
+        digit 0 -> UI shows predicted 0, confidence 100.0 %
+        digit 1 -> UI shows predicted 1, confidence 99.9 %
+        digit 2 -> UI shows predicted 2, confidence 100.0 %
+        digit 3 -> UI shows predicted 3, confidence 100.0 %
+        digit 4 -> UI shows predicted 4, confidence 100.0 %
+        digit 5 -> UI shows predicted 5, confidence 100.0 %
+        digit 6 -> UI shows predicted 6, confidence 99.7 %
+        digit 7 -> UI shows predicted 7, confidence 100.0 %
+        digit 8 -> UI shows predicted 8, confidence 99.5 %
+        digit 9 -> UI shows predicted 9, confidence 98.4 %
+[PASS] UI classifies all 10 sample digits through the API: 10/10 correct
+[PASS] Pixel-value tab predicts a pasted image of the digit 3: predicted 3
+[PASS] Invalid input shows the API error message in the UI: ['Prediction failed: Each image needs exactly 64 pixel values (flattened 8x8).']
+[PASS] UI shows an error (no crash) when the API is unreachable: API not reachable: HTTPConnectionPool(host='127.0.0.1', port=9): Max r
+
+8/8 UI integration checks passed
+
+== 3. Streamlit server (streamlit run, port 8502) ==
+GET /_stcore/health -> ok
+GET /               -> HTTP 200

@@ -1,0 +1,234 @@
+[
+  {
+    "command": "docker --version && docker version --format 'Client: {{.Client.Version}} | Server: {{.Server.Version}}'",
+    "output": "Docker version 29.8.2, build 7fc2dff\nClient: 29.8.2 | Server: 29.8.2",
+    "returncode": 0,
+    "time": "2026-10-10 15:01:00",
+    "section": "1. Verify Docker and Compose",
+    "title": "Docker version"
+  },
+  {
+    "command": "docker compose version",
+    "output": "Docker Compose version v5.5.1",
+    "returncode": 0,
+    "time": "2026-10-10 15:01:00",
+    "section": "1. Verify Docker and Compose",
+    "title": "Docker Compose version"
+  },
+  {
+    "command": "docker compose config --services",
+    "output": "api\nui",
+    "returncode": 0,
+    "time": "2026-10-10 15:01:00",
+    "section": "2. Validate the configuration and build the images",
+    "title": "Services defined in docker-compose.yml"
+  },
+  {
+    "command": "docker compose build",
+    "output": "#1 [internal] load local bake definitions\n#1 reading from stdin 1.04kB done\n#1 DONE 0.0s\n\n#2 [api internal] load build definition from Dockerfile\n#2 transferring dockerfile: 1.02kB done\n#2 DONE 0.0s\n\n#3 [ui internal] load build definition from Dockerfile\n#3 transferring dockerfile: 1.01kB done\n#3 DONE 0.0s\n\n#4 [ui internal] load metadata for docker.io/library/python:3.12-slim\n#4 ...\n\n#5 [auth] library/python:pull token for registry-1.docker.io\n#5 DONE 0.0s\n\n#4 [ui internal] load metadata for docker.io/library/python:3.12-slim\n#4 DONE 1.8s\n\n#6 [ui internal] load .dockerignore\n#6 transferring context: 108B done\n#6 DONE 0.0s\n\n#7 [api internal] load .dockerignore\n#7 transferring context: 206B done\n#7 DONE 0.0s\n\n#8 [api internal] load build context\n#8 transferring context: 30.03kB done\n#8 DONE 0.0s\n\n#9 [ui internal] load build context\n#9 transferring context: 5.47kB done\n#9 DONE 0.0s\n\n#10 [api builder 1/4] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1\n#10 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 0.0s done\n#10 CACHED\n\n#11 [api builder 2/4] WORKDIR /build\n#11 CACHED\n\n#12 [api builder 3/4] COPY requirements.txt .\n#12 CACHED\n\n#13 [api stage-1 4/6] COPY --from=builder /install /usr/local\n#13 CACHED\n\n#14 [api builder 4/4] RUN pip install --no-cache-dir --prefix=/install -r requirements.txt\n#14 CACHED\n\n#15 [api stage-1 3/6] WORKDIR /app\n#15 CACHED\n\n#16 [api stage-1 5/6] COPY app.py .\n#16 CACHED\n\n#17 [api stage-1 2/6] RUN useradd --create-home --uid 10001 --shell /usr/sbin/nologin appuser\n#17 CACHED\n\n#18 [api stage-1 6/6] COPY model/ model/\n#18 CACHED\n\n#19 [ui builder 3/4] COPY requirements.txt .\n#19 DONE 0.0s\n\n#20 [api] exporting to image\n#20 exporting layers done\n#20 exporting manifest sha256:eae9b19150b28a436094439395bab5368bcfe1466496b2a0a1f5f7224ba4da83 0.0s done\n#20 exporting config sha256:5b9d1544d4daa7b204eab0ab698190662d9407d9f1bb1ba7375e44382fc85eff done\n#20 exporting attestation manifest sha256:ffd44ef4571b4003c88dc25b5c577e0dc34f63c097cea4225872cd2f93e554db done\n#20 exporting manifest list sha256:d081e9baa0599282503f76bc168f5fdeb8dfa96094115884de439f4d984d70d1 done\n#20 naming to docker.io/library/dl-api:1.0 done\n#20 unpacking to docker.io/library/dl-api:1.0 done\n#20 DONE 0.1s\n\n#21 [ui builder 4/4] RUN pip install --no-cache-dir --prefix=/install -r requirements.txt\n#21 ...\n\n#22 [api] resolving provenance for metadata file\n#22 DONE 0.0s\n\n#23 [ui stage-1 2/5] RUN useradd --create-home --uid 10001 --shell /usr/sbin/nologin appuser\n#23 DONE 0.2s\n\n#24 [ui stage-1 3/5] WORKDIR /app\n#24 DONE 0.0s\n\n#21 [ui builder 4/4] RUN pip install --no-cache-dir --prefix=/install -r requirements.txt\n#21 1.660 Collecting altair==6.3.0 (from -r requirements.txt (line 1))\n#21 1.734   Downloading altair-6.3.0-py3-none-any.whl.metadata (11 kB)\n#21 1.760 Collecting anyio==4.15.1 (from -r requirements.txt (line 2))\n#21 1.769   Downloading anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)\n#21 1.786 Collecting attrs==26.1.0 (from -r requirements.txt (line 3))\n#21 1.797   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)\n#21 1.817 Collecting certifi==2026.7.22 (from -r requirements.txt (line 4))\n#21 1.828   Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)\n#21 1.935 Collecting charset-normalizer==3.5.2 (from -r requirements.txt (line 5))\n#21 1.944   Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (46 kB)\n#21 1.973 Collecting click==8.5.0 (from -r requirements.txt (line 6))\n#21 1.981   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)\n#21 1.992 Collecting h11==0.16.0 (from -r requirements.txt (line 7))\n#21 1.999   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)\n#21 2.042 Collecting httptools==0.9.0 (from -r requirements.txt (line 8))\n#21 2.050   Downloading httptools-0.9.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (3.5 kB)\n#21 2.064 Collecting idna==3.20 (from -r requirements.txt (line 9))\n#21 2.071   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)\n#21 2.086 Collecting itsdangerous==2.2.0 (from -r requirements.txt (line 10))\n#21 2.093   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)\n#21 2.108 Collecting Jinja2==3.1.6 (from -r requirements.txt (line 11))\n#21 2.114   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)\n#21 2.128 Collecting jsonschema-specifications==2025.9.1 (from -r requirements.txt (line 12))\n#21 2.135   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)\n#21 2.155 Collecting jsonschema==4.26.0 (from -r requirements.txt (line 13))\n#21 2.163   Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)\n#21 2.205 Collecting MarkupSafe==3.0.4 (from -r requirements.txt (line 14))\n#21 2.212   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (2.7 kB)\n#21 2.244 Collecting narwhals==2.26.0 (from -r requirements.txt (line 15))\n#21 2.252   Downloading narwhals-2.26.0-py3-none-any.whl.metadata (15 kB)\n#21 2.444 Collecting numpy==2.5.3 (from -r requirements.txt (line 16))\n#21 2.455   Downloading numpy-2.5.3-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl.metadata (6.6 kB)\n#21 2.472 Collecting packaging==26.3 (from -r requirements.txt (line 17))\n#21 2.483   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)\n#21 2.620 Collecting pandas==3.0.6 (from -r requirements.txt (line 18))\n#21 2.635   Downloading pandas-3.0.6-cp312-cp312-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl.metadata (79 kB)\n#21 2.822 Collecting pillow==12.3.0 (from -r requirements.txt (line 19))\n#21 2.831   Downloading pillow-12.3.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl.metadata (9.1 kB)\n#21 2.991 Collecting protobuf==7.36.2 (from -r requirements.txt (line 20))\n#21 3.000   Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_aarch64.whl.metadata (595 bytes)\n#21 3.072 Collecting pyarrow==25.0.1 (from -r requirements.txt (line 21))\n#21 3.081   Downloading pyarrow-25.0.1-cp312-cp312-manylinux_2_28_aarch64.whl.metadata (3.0 kB)\n#21 3.095 Collecting pydeck==0.9.3 (from -r requirements.txt (line 22))\n#21 3.106   Downloading pydeck-0.9.3-py2.py3-none-any.whl.metadata (4.2 kB)\n#21 3.198 Collecting python-dateutil==2.9.0.post0 (from -r requirements.txt (line 23))\n#21 3.218   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)\n#21 3.245 Collecting python-multipart==0.0.32 (from -r requirements.txt (line 24))\n#21 3.259   Downloading python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)\n#21 3.305 Collecting referencing==0.37.0 (from -r requirements.txt (line 25))\n#21 3.315   Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)\n#21 3.344 Collecting requests==2.34.2 (from -r requirements.txt (line 26))\n#21 3.353   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)\n#21 3.621 Collecting rpds-py==2026.9.1 (from -r requirements.txt (line 27))\n#21 3.632   Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (4.1 kB)\n#21 3.646 Collecting six==1.17.0 (from -r requirements.txt (line 28))\n#21 3.655   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)\n#21 3.688 Collecting starlette==1.7.0 (from -r requirements.txt (line 29))\n#21 3.697   Downloading starlette-1.7.0-py3-none-any.whl.metadata (6.6 kB)\n#21 3.740 Collecting streamlit==1.65.0 (from -r requirements.txt (line 30))\n#21 3.748   Downloading streamlit-1.65.0-py3-none-any.whl.metadata (10 kB)\n#21 3.763 Collecting toml==0.10.2 (from -r requirements.txt (line 31))\n#21 3.773   Downloading toml-0.10.2-py2.py3-none-any.whl.metadata (7.1 kB)\n#21 3.791 Collecting typing_extensions==4.16.0 (from -r requirements.txt (line 32))\n#21 3.798   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)\n#21 3.821 Collecting urllib3==2.8.0 (from -r requirements.txt (line 33))\n#21 3.829   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)\n#21 3.858 Collecting uvicorn==0.54.0 (from -r requirements.txt (line 34))\n#21 3.867   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)\n#21 3.949 Collecting watchdog==6.0.0 (from -r requirements.txt (line 35))\n#21 3.958   Downloading watchdog-6.0.0-py3-none-manylinux2014_aarch64.whl.metadata (44 kB)\n#21 4.091 Collecting websockets==17.2 (from -r requirements.txt (line 36))\n#21 4.099   Downloading websockets-17.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (6.3 kB)\n#21 4.274 Downloading altair-6.3.0-py3-none-any.whl (797 kB)\n#21 4.600    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 797.2/797.2 kB 1.7 MB/s eta 0:00:00\n#21 4.609 Downloading anyio-4.15.1-py3-none-any.whl (132 kB)\n#21 4.621 Downloading attrs-26.1.0-py3-none-any.whl (67 kB)\n#21 4.633 Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)\n#21 4.666 Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (246 kB)\n#21 4.745 Downloading click-8.5.0-py3-none-any.whl (125 kB)\n#21 4.762 Downloading h11-0.16.0-py3-none-any.whl (37 kB)\n#21 4.775 Downloading httptools-0.9.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (549 kB)\n#21 4.854    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 549.2/549.2 kB 4.7 MB/s eta 0:00:00\n#21 4.862 Downloading idna-3.20-py3-none-any.whl (69 kB)\n#21 4.908 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)\n#21 4.918 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)\n#21 4.954 Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)\n#21 4.965 Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)\n#21 4.993 Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (24 kB)\n#21 5.005 Downloading narwhals-2.26.0-py3-none-any.whl (474 kB)\n#21 5.101 Downloading numpy-2.5.3-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl (15.7 MB)\n#21 8.526    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 15.7/15.7 MB 4.6 MB/s eta 0:00:00\n#21 8.537 Downloading packaging-26.3-py3-none-any.whl (129 kB)\n#21 8.574 Downloading pandas-3.0.6-cp312-cp312-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl (10.3 MB)\n#21 10.71    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 10.3/10.3 MB 4.8 MB/s eta 0:00:00\n#21 10.72 Downloading pillow-12.3.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl (6.3 MB)\n#21 12.10    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 6.3/6.3 MB 4.5 MB/s eta 0:00:00\n#21 12.11 Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_aarch64.whl (344 kB)\n#21 12.20 Downloading pyarrow-25.0.1-cp312-cp312-manylinux_2_28_aarch64.whl (46.8 MB)\n#21 22.09    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 46.8/46.8 MB 4.7 MB/s eta 0:00:00\n#21 22.10 Downloading pydeck-0.9.3-py2.py3-none-any.whl (11.4 MB)\n#21 24.60    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 11.4/11.4 MB 4.7 MB/s eta 0:00:00\n#21 24.61 Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)\n#21 24.68 Downloading python_multipart-0.0.32-py3-none-any.whl (30 kB)\n#21 24.69 Downloading referencing-0.37.0-py3-none-any.whl (26 kB)\n#21 24.71 Downloading requests-2.34.2-py3-none-any.whl (73 kB)\n#21 24.74 Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (373 kB)\n#21 24.86 Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)\n#21 24.87 Downloading starlette-1.7.0-py3-none-any.whl (78 kB)\n#21 24.90 Downloading streamlit-1.65.0-py3-none-any.whl (10.3 MB)\n#21 27.27    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 10.3/10.3 MB 4.4 MB/s eta 0:00:00\n#21 27.28 Downloading toml-0.10.2-py2.py3-none-any.whl (16 kB)\n#21 27.29 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)\n#21 27.31 Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)\n#21 27.35 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)\n#21 27.37 Downloading watchdog-6.0.0-py3-none-manylinux2014_aarch64.whl (79 kB)\n#21 27.40 Downloading websockets-17.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (226 kB)\n#21 27.65 Installing collected packages: websockets, watchdog, urllib3, typing_extensions, toml, six, rpds-py, python-multipart, pyarrow, protobuf, pillow, packaging, numpy, narwhals, MarkupSafe, itsdangerous, idna, httptools, h11, click, charset-normalizer, certifi, attrs, uvicorn, requests, referencing, python-dateutil, Jinja2, anyio, starlette, pydeck, pandas, jsonschema-specifications, jsonschema, altair, streamlit\n#21 38.18 Successfully installed Jinja2-3.1.6 MarkupSafe-3.0.4 altair-6.3.0 anyio-4.15.1 attrs-26.1.0 certifi-2026.7.22 charset-normalizer-3.5.2 click-8.5.0 h11-0.16.0 httptools-0.9.0 idna-3.20 itsdangerous-2.2.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 narwhals-2.26.0 numpy-2.5.3 packaging-26.3 pandas-3.0.6 pillow-12.3.0 protobuf-7.36.2 pyarrow-25.0.1 pydeck-0.9.3 python-dateutil-2.9.0.post0 python-multipart-0.0.32 referencing-0.37.0 requests-2.34.2 rpds-py-2026.9.1 six-1.17.0 starlette-1.7.0 streamlit-1.65.0 toml-0.10.2 typing_extensions-4.16.0 urllib3-2.8.0 uvicorn-0.54.0 watchdog-6.0.0 websockets-17.2\n#21 38.18 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\n#21 38.28 \n#21 38.28 [notice] A new release of pip is available: 25.0.1 -> 26.2.1\n#21 38.28 [notice] To update, run: pip install --upgrade pip\n#21 DONE 38.7s\n\n#25 [ui stage-1 4/5] COPY --from=builder /install /usr/local\n#25 DONE 1.4s\n\n#26 [ui stage-1 5/5] COPY streamlit_app.py .\n#26 DONE 0.1s\n\n#27 [ui] exporting to image\n#27 exporting layers\n#27 exporting layers 13.6s done\n#27 exporting manifest sha256:106d27ee4b3364b317d5e31b15333354415cb6f98f7d662dea84d7aa8c982a2a done\n#27 exporting config sha256:410b0c408d83e55b2de178cd21246814293b9175535f86f3fd17539dd18ae134 done\n#27 exporting attestation manifest sha256:dcadab1538d02a068218f0ea273da4f9910f50a830fe076b13004ab6c3f6663f done\n#27 exporting manifest list sha256:a213b7a307747019eae5b43ac8ea3ab87d734ce89d8373f3f46ca2f78ad3edfe done\n#27 naming to docker.io/library/dl-ui:1.0 done\n#27 unpacking to docker.io/library/dl-ui:1.0\n#27 unpacking to docker.io/library/dl-ui:1.0 2.4s done\n#27 DONE 16.1s\n\n#28 [ui] resolving provenance for metadata file\n#28 DONE 0.0s\n\n[stderr]\n Image dl-ui:1.0 Building \n Image dl-api:1.0 Building \n Image dl-api:1.0 Built \n Image dl-ui:1.0 Built",
+    "returncode": 0,
+    "time": "2026-10-10 15:01:00",
+    "section": "2. Validate the configuration and build the images",
+    "title": "Build both images (api and ui)"
+  },
+  {
+    "command": "docker image ls --filter 'reference=dl-*' --format 'table {{.Repository}}\\t{{.Tag}}\\t{{.ID}}\\t{{.Size}}'",
+    "output": "REPOSITORY           TAG       IMAGE ID       SIZE\ndl-ui                1.0       a213b7a30774   779MB\ndl-api               1.0       d081e9baa059   303MB\ndl-deploy-api        latest    1d9646e0048f   2.28GB\ndl-deploy-frontend   latest    6371e70a23bc   792MB\ndl-digits            1.0       3c11f996f9d5   603MB\ndl-app               1.0       34d8650d4c16   324MB",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:00",
+    "section": "2. Validate the configuration and build the images",
+    "title": "List the images"
+  },
+  {
+    "command": "docker image inspect dl-api:1.0 --format '{{.Size}}'",
+    "output": "303293481",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:00",
+    "section": "2. Validate the configuration and build the images",
+    "title": "Size of the API image in bytes"
+  },
+  {
+    "command": "docker image inspect dl-ui:1.0 --format '{{.Size}}'",
+    "output": "778900479",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:00",
+    "section": "2. Validate the configuration and build the images",
+    "title": "Size of the UI image in bytes"
+  },
+  {
+    "command": "docker history dl-ui:1.0",
+    "output": "IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT\na213b7a30774   17 seconds ago   CMD [\"streamlit\" \"run\" \"streamlit_app.py\" \"-\u2026   0B        buildkit.dockerfile.v0\n<missing>      17 seconds ago   HEALTHCHECK {Test:[CMD python -c import urll\u2026   0B        buildkit.dockerfile.v0\n<missing>      17 seconds ago   EXPOSE [8501/tcp]                               0B        buildkit.dockerfile.v0\n<missing>      17 seconds ago   USER appuser                                    0B        buildkit.dockerfile.v0\n<missing>      17 seconds ago   COPY streamlit_app.py . # buildkit              16.4kB    buildkit.dockerfile.v0\n<missing>      17 seconds ago   COPY /install /usr/local # buildkit             448MB     buildkit.dockerfile.v0\n<missing>      57 seconds ago   WORKDIR /app                                    8.19kB    buildkit.dockerfile.v0\n<missing>      58 seconds ago   RUN /bin/sh -c useradd --create-home --uid 1\u2026   69.6kB    buildkit.dockerfile.v0\n<missing>      58 seconds ago   ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFER\u2026   0B        buildkit.dockerfile.v0\n<missing>      4 days ago       CMD [\"python3\"]                                 0B        buildkit.dockerfile.v0\n<missing>      4 days ago       RUN /bin/sh -c set -eux;  for src in idle3 p\u2026   16.4kB    buildkit.dockerfile.v0\n<missing>      4 days ago       RUN /bin/sh -c set -eux;   savedAptMark=\"$(a\u2026   44.6MB    buildkit.dockerfile.v0\n<missing>      4 days ago       ENV PYTHON_SHA256=c2c4321961fab0fb999d66e0ce\u2026   0B        buildkit.dockerfile.v0\n<missing>      4 days ago       ENV PYTHON_VERSION=3.12.15                      0B        buildkit.dockerfile.v0\n<missing>      4 days ago       ENV GPG_KEY=7169605F62C751356D054A26A821E680\u2026   0B        buildkit.dockerfile.v0\n<missing>      4 days ago       RUN /bin/sh -c set -eux;  apt-get update;  a\u2026   4.99MB    buildkit.dockerfile.v0\n<missing>      4 days ago       ENV LANG=C.UTF-8                                0B        buildkit.dockerfile.v0\n<missing>      4 days ago       ENV PATH=/usr/local/bin:/usr/local/sbin:/usr\u2026   0B        buildkit.dockerfile.v0\n<missing>      5 days ago       # debian.sh --arch 'arm64' out/ 'trixie' '@1\u2026   110MB     debuerreotype 0.17",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:00",
+    "section": "2. Validate the configuration and build the images",
+    "title": "Layer history of the UI image"
+  },
+  {
+    "command": "docker compose up -d",
+    "output": "\n[stderr]\n Network dl-app-net Creating \n Network dl-app-net Creating \n Network dl-app-net Created \n Network dl-app-net Created \n Container dl-api Creating \n Container dl-api Created \n Container dl-ui Creating \n Container dl-ui Created \n Container dl-api Starting \n Container dl-api Started \n Container dl-api Waiting \n Container dl-api Healthy \n Container dl-ui Starting \n Container dl-ui Started",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:00",
+    "section": "3. Start the full application with Docker Compose",
+    "title": "Start both containers (docker compose up -d)"
+  },
+  {
+    "command": "for i in $(seq 1 60); do s=$(docker inspect --format '{{.State.Health.Status}}' dl-api); echo \"check $i: $s\"; [ \"$s\" = healthy ] && break; sleep 2; done; [ \"$s\" = healthy ]",
+    "output": "check 1: healthy",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:07",
+    "section": "3. Start the full application with Docker Compose",
+    "title": "Wait until the API container is healthy"
+  },
+  {
+    "command": "for i in $(seq 1 60); do s=$(docker inspect --format '{{.State.Health.Status}}' dl-ui); echo \"check $i: $s\"; [ \"$s\" = healthy ] && break; sleep 2; done; [ \"$s\" = healthy ]",
+    "output": "check 1: starting\ncheck 2: starting\ncheck 3: starting\ncheck 4: healthy",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:07",
+    "section": "3. Start the full application with Docker Compose",
+    "title": "Wait until the UI container is healthy"
+  },
+  {
+    "command": "docker ps --filter name=dl- --format 'table {{.Names}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}'",
+    "output": "NAMES     IMAGE        STATUS                    PORTS\ndl-ui     dl-ui:1.0    Up 6 seconds (healthy)    0.0.0.0:8501->8501/tcp, [::]:8501->8501/tcp\ndl-api    dl-api:1.0   Up 12 seconds (healthy)   0.0.0.0:8000->5000/tcp, [::]:8000->5000/tcp",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:13",
+    "section": "3. Start the full application with Docker Compose",
+    "title": "List the running containers"
+  },
+  {
+    "command": "python3 tests/test_api.py --url http://localhost:8000 --out api_test_results.json",
+    "output": "[PASS] GET /health returns 200 and status ok: HTTP 200 {\"status\": \"ok\", \"uptime_seconds\": 11.6}\n[PASS] GET / lists the endpoints: HTTP 200, endpoints=['GET /health', 'GET /model-info', 'GET /samples', 'POST /predict']\n[PASS] GET /model-info returns model metadata: HTTP 200, parameters=4810, test_accuracy=0.9722\n[PASS] GET /samples returns 10 labelled examples: HTTP 200, 10 samples\n[PASS] POST /predict classifies the 10 samples: 10/10 correct\n        true 0 -> predicted 0 (confidence 1.0)\n        true 1 -> predicted 1 (confidence 0.9989)\n        true 2 -> predicted 2 (confidence 1.0)\n        true 3 -> predicted 3 (confidence 1.0)\n        true 4 -> predicted 4 (confidence 1.0)\n        true 5 -> predicted 5 (confidence 1.0)\n        true 6 -> predicted 6 (confidence 0.9972)\n        true 7 -> predicted 7 (confidence 1.0)\n        true 8 -> predicted 8 (confidence 0.9951)\n        true 9 -> predicted 9 (confidence 0.9837)\n[PASS] POST /predict batch of 10 instances: HTTP 200, count=10, inference_ms=0.666\n[PASS] Wrong input length is rejected with 400: HTTP 400 {\"error\": \"Each image needs exactly 64 pixel values (flattened 8x8).\"}\n[PASS] Non-numeric pixels are rejected with 400: HTTP 400 {\"error\": \"All pixel values must be numbers.\"}\n[PASS] Out-of-range pixels are rejected with 400: HTTP 400 {\"error\": \"Pixel values must be finite numbers between 0 and 16.\"}\n[PASS] Invalid JSON is rejected with 400: HTTP 400 {\"error\": \"Request body must be a JSON object with \\\"pixels\\\" or \\\"instances\\\".\"}\n[PASS] Unknown route returns JSON 404: HTTP 404 {\"error\": \"Route not found.\"}\n[PASS] GET on /predict returns JSON 405: HTTP 405 {\"error\": \"Method not allowed for this route.\"}\n[PASS] Latency of 50 sequential /predict calls measured: {\"requests\": 50, \"mean_ms\": 1.56, \"median_ms\": 1.51, \"max_ms\": 2.51}\n\n13/13 checks passed",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:13",
+    "section": "4. Test the application",
+    "title": "API test suite (tests/test_api.py)"
+  },
+  {
+    "command": "curl -s http://localhost:8501/_stcore/health",
+    "output": "ok",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:13",
+    "section": "4. Test the application",
+    "title": "UI health endpoint"
+  },
+  {
+    "command": "curl -s -o /dev/null -w 'HTTP status: %{http_code}\\n' http://localhost:8501/",
+    "output": "HTTP status: 200",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:13",
+    "section": "4. Test the application",
+    "title": "UI main page"
+  },
+  {
+    "command": "docker compose exec -T ui python -c \"import urllib.request; print(urllib.request.urlopen('http://api:5000/health').read().decode())\"",
+    "output": "{\"status\":\"ok\",\"uptime_seconds\":12.2}",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:13",
+    "section": "4. Test the application",
+    "title": "UI container reaches the API container by service name"
+  },
+  {
+    "command": "docker compose exec -T ui python - < tests/ui_apptest.py 2>&1 | grep -v -i 'warning\\|ScriptRunContext'; exit ${PIPESTATUS[0]}",
+    "output": "[PASS] UI page renders without an exception: exceptions=0\n[PASS] UI title is shown: ['Deep Learning Digit Classifier']\n[PASS] Sidebar reports that the API is reachable: ['API reachable (status: ok)']\n[PASS] Sidebar shows the model accuracy from the API: 97.22 %\n        digit 0 -> UI shows predicted 0, confidence 100.0 %\n        digit 1 -> UI shows predicted 1, confidence 99.9 %\n        digit 2 -> UI shows predicted 2, confidence 100.0 %\n        digit 3 -> UI shows predicted 3, confidence 100.0 %\n        digit 4 -> UI shows predicted 4, confidence 100.0 %\n        digit 5 -> UI shows predicted 5, confidence 100.0 %\n        digit 6 -> UI shows predicted 6, confidence 99.7 %\n        digit 7 -> UI shows predicted 7, confidence 100.0 %\n        digit 8 -> UI shows predicted 8, confidence 99.5 %\n        digit 9 -> UI shows predicted 9, confidence 98.4 %\n[PASS] UI classifies all 10 sample digits through the API: 10/10 correct\n[PASS] Pixel-value tab predicts a pasted image of the digit 3: predicted 3\n[PASS] Invalid input shows the API error message in the UI: ['Prediction failed: Each image needs exactly 64 pixel values (flattened 8x8).']\n[PASS] UI shows an error (no crash) when the API is unreachable: API not reachable: HTTPConnectionPool(host='127.0.0.1', port=9): Max r\n\n8/8 UI integration checks passed",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:14",
+    "section": "4. Test the application",
+    "title": "UI integration test inside the ui container (Streamlit AppTest against the real API)"
+  },
+  {
+    "command": "docker exec dl-api id && docker exec dl-ui id",
+    "output": "uid=10001(appuser) gid=10001(appuser) groups=10001(appuser)\nuid=10001(appuser) gid=10001(appuser) groups=10001(appuser)",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:16",
+    "section": "5. Inspect the containers and the network",
+    "title": "User inside both containers (should not be root)"
+  },
+  {
+    "command": "docker inspect dl-api dl-ui --format '{{.Name}}: User={{.Config.User}} | Health={{.State.Health.Status}} | Image={{.Config.Image}} | Restart={{.HostConfig.RestartPolicy.Name}}'",
+    "output": "/dl-api: User=appuser | Health=healthy | Image=dl-api:1.0 | Restart=unless-stopped\n/dl-ui: User=appuser | Health=healthy | Image=dl-ui:1.0 | Restart=unless-stopped",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:16",
+    "section": "5. Inspect the containers and the network",
+    "title": "Container configuration and health"
+  },
+  {
+    "command": "docker network inspect dl-app-net --format '{{range .Containers}}{{.Name}} -> {{.IPv4Address}}{{println}}{{end}}'",
+    "output": "dl-api -> 172.19.0.2/16\ndl-ui -> 172.19.0.3/16",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:16",
+    "section": "5. Inspect the containers and the network",
+    "title": "Containers attached to the private network"
+  },
+  {
+    "command": "docker exec dl-ui printenv API_URL",
+    "output": "http://api:5000",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:16",
+    "section": "5. Inspect the containers and the network",
+    "title": "API address configured in the UI container"
+  },
+  {
+    "command": "docker exec dl-api python -c \"import importlib.util as u; print('flask installed:', u.find_spec('flask') is not None); print('streamlit installed:', u.find_spec('streamlit') is not None); print('numpy installed:', u.find_spec('numpy') is not None)\"",
+    "output": "flask installed: True\nstreamlit installed: False\nnumpy installed: True",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:16",
+    "section": "5. Inspect the containers and the network",
+    "title": "Installed components: api container"
+  },
+  {
+    "command": "docker exec dl-ui python -c \"import importlib.util as u; print('flask installed:', u.find_spec('flask') is not None); print('streamlit installed:', u.find_spec('streamlit') is not None); print('numpy installed:', u.find_spec('numpy') is not None)\"",
+    "output": "flask installed: False\nstreamlit installed: True\nnumpy installed: True",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:16",
+    "section": "5. Inspect the containers and the network",
+    "title": "Installed components: ui container"
+  },
+  {
+    "command": "docker compose logs --tail 6",
+    "output": "dl-api  | 172.19.0.3 - - [10/Oct/2026:09:32:16 +0000] \"GET /health HTTP/1.1\" 200 38 \"-\" \"python-requests/2.34.2\"\ndl-api  | 172.19.0.3 - - [10/Oct/2026:09:32:16 +0000] \"GET /model-info HTTP/1.1\" 200 433 \"-\" \"python-requests/2.34.2\"\ndl-api  | 172.19.0.3 - - [10/Oct/2026:09:32:16 +0000] \"GET /health HTTP/1.1\" 200 38 \"-\" \"python-requests/2.34.2\"\ndl-api  | 172.19.0.3 - - [10/Oct/2026:09:32:16 +0000] \"GET /model-info HTTP/1.1\" 200 433 \"-\" \"python-requests/2.34.2\"\ndl-api  | 172.19.0.3 - - [10/Oct/2026:09:32:16 +0000] \"POST /predict HTTP/1.1\" 400 70 \"-\" \"python-requests/2.34.2\"\ndl-api  | 127.0.0.1 - - [10/Oct/2026:09:32:16 +0000] \"GET /health HTTP/1.1\" 200 38 \"-\" \"Python-urllib/3.12\"\ndl-ui   |   You can now view your Streamlit app in your browser.\ndl-ui   | \ndl-ui   |   Local URL: http://localhost:8501\ndl-ui   |   Network URL: http://172.19.0.3:8501\ndl-ui   |   External URL: http://106.222.211.117:8501\ndl-ui   |",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:17",
+    "section": "5. Inspect the containers and the network",
+    "title": "Container logs (last lines of both services)"
+  },
+  {
+    "command": "docker stats --no-stream dl-api dl-ui",
+    "output": "CONTAINER ID   NAME      CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O     PIDS\na8ed3d01a5bd   dl-api    0.02%     122MiB / 7.748GiB     1.54%     109kB / 112kB   62.4MB / 0B   22\nbd8dc373b07b   dl-ui     0.59%     53.38MiB / 7.748GiB   0.67%     56.3kB / 49kB   2.79MB / 0B   6",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:17",
+    "section": "5. Inspect the containers and the network",
+    "title": "Resource usage of both containers"
+  },
+  {
+    "command": "docker restart dl-api && for i in $(seq 1 60); do s=$(docker inspect --format '{{.State.Health.Status}}' dl-api); echo \"check $i: $s\"; [ \"$s\" = healthy ] && break; sleep 2; done; [ \"$s\" = healthy ] && docker compose exec -T ui python -c \"import urllib.request; print(urllib.request.urlopen('http://api:5000/health').read().decode())\"",
+    "output": "dl-api\ncheck 1: starting\ncheck 2: starting\ncheck 3: starting\ncheck 4: healthy\n{\"status\":\"ok\",\"uptime_seconds\":6.0}",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:19",
+    "section": "6. Resilience and dependency checks",
+    "title": "Restart the API container; the UI can reach it again"
+  },
+  {
+    "command": "docker compose stop api && sleep 2 && curl -s http://localhost:8501/_stcore/health && echo && docker ps -a --filter name=dl- --format 'table {{.Names}}\\t{{.Status}}'",
+    "output": "ok\nNAMES     STATUS\ndl-ui     Up 22 seconds (healthy)\ndl-api    Exited (0) 2 seconds ago\n\n[stderr]\n Container dl-api Stopping \n Container dl-api Stopped",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:26",
+    "section": "6. Resilience and dependency checks",
+    "title": "Stop the API; the UI container keeps running"
+  },
+  {
+    "command": "docker compose start api && for i in $(seq 1 60); do s=$(docker inspect --format '{{.State.Health.Status}}' dl-api); echo \"check $i: $s\"; [ \"$s\" = healthy ] && break; sleep 2; done; [ \"$s\" = healthy ] && docker compose exec -T ui python - < tests/ui_apptest.py 2>&1 | grep -v -i 'warning\\|ScriptRunContext' | tail -4",
+    "output": "check 1: starting\ncheck 2: starting\ncheck 3: starting\ncheck 4: healthy\n[PASS] Invalid input shows the API error message in the UI: ['Prediction failed: Each image needs exactly 64 pixel values (flattened 8x8).']\n[PASS] UI shows an error (no crash) when the API is unreachable: API not reachable: HTTPConnectionPool(host='127.0.0.1', port=9): Max r\n\n8/8 UI integration checks passed\n\n[stderr]\n Container dl-api Starting \n Container dl-api Started",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:29",
+    "section": "6. Resilience and dependency checks",
+    "title": "Start the API again and repeat the UI integration test"
+  },
+  {
+    "command": "docker compose down && docker ps -a --format 'table {{.Names}}\\t{{.Status}}'",
+    "output": "NAMES     STATUS\n\n[stderr]\n Container dl-ui Stopping \n Container dl-ui Stopped \n Container dl-ui Removing \n Container dl-ui Removed \n Container dl-api Stopping \n Container dl-api Stopped \n Container dl-api Removing \n Container dl-api Removed \n Network dl-app-net Removing \n Network dl-app-net Removed",
+    "returncode": 0,
+    "time": "2026-10-10 15:02:37",
+    "section": "7. Cleanup",
+    "title": "Stop and remove the containers and the network (images are kept)"
+  }
+]
